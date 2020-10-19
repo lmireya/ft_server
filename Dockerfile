@@ -6,7 +6,7 @@
 #    By: lmireya <lmireya@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/19 18:37:49 by lmireya           #+#    #+#              #
-#    Updated: 2020/10/19 21:55:03 by lmireya          ###   ########.fr        #
+#    Updated: 2020/10/19 22:22:52 by lmireya          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ php7.3-curl php7.3-intl php7.3-mbstring php7.3-xmlrpc php7.3-gd php7.3-xml \
 php7.3-cli php7.3-zip php7.3-soap php7.3-imap nginx mariadb-server openssl \
 && rm -rf /etc/nginx/sites-available/default \
 && rm -rf /etc/nginx/sites-enabled/default \
-&& mkdir -p /var/www/lmireya
+&& mkdir -p /var/www/html
 
 # config access
 RUN chown -R www-data /var/www/* && chmod -R 755 /var/www/*
@@ -39,14 +39,14 @@ COPY srcs/db.sh /var/
 RUN bash /var/db.sh
 
 # phpmyadmin
-ADD srcs/phpMyAdmin.tar.gz /var/www/lmireya
-RUN mv /var/www/lmireya/phpMyAdmin-4.9.5-all-languages /var/www/lmireya/phpmyadmin
-COPY srcs/config.inc.php /var/www/lmireya/phpmyadmin
+ADD srcs/phpMyAdmin.tar.gz /var/www/html
+RUN mv /var/www/html/phpMyAdmin-4.9.5-all-languages /var/www/html/phpmyadmin
+COPY srcs/config.inc.php /var/www/html/phpmyadmin
 
 # wordpress
-ADD srcs/wordpress-5.4.2.tar.gz /var/www/lmireya
-COPY srcs/wp-config.php /var/www/lmireya/wordpress
-RUN rm -rf /var/www/lmireya/phpmyadmin/config.sample.inc.php
+ADD srcs/wordpress-5.4.2.tar.gz /var/www/html
+COPY srcs/wp-config.php /var/www/html/wordpress
+RUN rm -rf /var/www/html/phpmyadmin/config.sample.inc.php
 
 EXPOSE 80 443
 
